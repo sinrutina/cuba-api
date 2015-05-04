@@ -1,0 +1,19 @@
+require "cuba"
+require "cuba/safe"
+require 'json'
+require 'logger'
+
+Dir['./domain/*.rb'].each  { |rb| require rb }
+
+Cuba.use Rack::Session::Cookie, secret: ENV['SECRET'] || SecureRandom.hex
+Cuba.plugin Cuba::Safe
+
+logger = Logger.new('log/app.log', 'daily')
+logger.level = Logger::INFO
+
+Cuba.define do
+  on root do
+    res.status = 200
+    res.write 'Hello World'
+  end
+end

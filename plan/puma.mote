@@ -1,0 +1,10 @@
+root = "#{Dir.getwd}"
+bind "unix://#{root}/tmp/server/socket"
+pidfile "#{root}/tmp/server/pid"
+state_path "#{root}/tmp/server/state"
+rackup "#{root}/config.ru"
+daemonize true
+port ENV['PORT'] || 9393
+stdout_redirect "#{root}/log/stdout.log", "#{root}/log/stderr.log", true
+threads 4, 8
+activate_control_app
