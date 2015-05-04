@@ -2,3 +2,4 @@
 state
 socket
 pid
+.env
